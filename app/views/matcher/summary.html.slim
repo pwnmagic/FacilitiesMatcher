@@ -1,0 +1,7 @@
+table.table.table-striped.table-bordered
+  tbody
+    - @summary.each do |key, value|
+      tr
+        td
+          b = key
+        td = value

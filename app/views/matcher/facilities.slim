@@ -1,0 +1,21 @@
+h3
+  | Facilties List
+
+table.table.table-striped.table-bordered.facilities-list
+  thead
+    tr
+      th District
+      th Name
+      th Type
+      th Owner
+      th.promoted Promoted
+  tbody
+    - @facilities.each do |facility|
+      tr class="#{facility.promoted ? 'success' : ''}"
+        td = facility.district
+        td = facility.name
+        td = facility.f_type
+        td = facility.owner
+        td.promoted = raw facility.promoted ? "&#10003;" : "&#10007;"
+
+= will_paginate @facilities, :renderer => BootstrapPagination::Rails

@@ -1,0 +1,12 @@
+form.form-horizontal#filter-form
+  .control-group
+    label.control-label for="filter"
+      | Sort by
+    .controls
+      = select_tag "order", options_for_select([["Percentage Matched", "percentage_matched"], ["Mtrac Name", "mtrac_name"], ["District", "district"], ["Dhis2 Name", "dhis2_name"]], :selected => @order)
+      | &nbsp;&nbsp;
+      = select_tag "type", options_for_select([["Ascending", "ASC"], ["Descending", "DESC"]], :selected => @type)
+      | &nbsp;&nbsp;
+      = hidden_field_tag "query", params[:query]
+      button type="submit" class="btn"
+        | Go

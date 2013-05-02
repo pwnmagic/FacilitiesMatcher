@@ -1,0 +1,3 @@
+#search-page
+  = render :partial => "sort"
+  = render :partial => "mapping_list", :locals => {:reload => true} unless @mappings.blank?

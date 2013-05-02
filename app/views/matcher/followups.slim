@@ -1,0 +1,6 @@
+#followups-page
+  h3
+    | Matches to be followed up -&nbsp;
+    = params[:category] || "All"
+  = render :partial => "sort"
+  = render :partial => "mapping_list"

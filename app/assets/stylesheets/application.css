@@ -1,0 +1,87 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+
+td.promoted{
+  text-align: center !important;
+}
+
+.facilities-list th.promoted{
+  text-align: center !important;
+}
+
+.district-list .mtrac-name, .district-list .type, .district-list .mtrac-owner, .district-list .district-name, .district-list .mtrac-type{
+  display: none;
+}
+
+.district-list .mtrac-id{
+  display: none;
+}
+
+.table tbody tr.warning > td{
+  background-color: #f2e187 !important;
+}
+
+.right{
+    float: right;
+}
+
+h3 small{
+    color: black !important;
+    display: block;
+}
+
+th.last-reported-date, td.last-reported-date{
+    display: none;
+}
+
+#search-page th.last-reported-date, #search-page td.last-reported-date, #followups-page th.last-reported-date, #followups-page td.last-reported-date{
+    display: table-cell;
+}
+
+/*#followups-page td.promoted, #followups-page th.promoted{
+    display: none;
+}
+*/
+td.comments form{
+    margin: 0;
+}
+
+td.comments form textarea{
+    width: 515px;
+}
+
+#filter-form label{
+    width: 50px;
+}
+
+#filter-form .controls{
+    margin-left: 70px;
+}
+
+#followups-page td.mtrac-owner, #followups-page th.mtrac-owner, #followups-page td.dhis-owner, #followups-page th.dhis-owner{
+    display: none;
+}
+
+.table tbody tr.success > td{
+    background-color: #DFF0D8 !important;
+}
+
+.table tbody tr.error > td{
+    background-color: #F2DEDE !important;
+}
+
+.table tbody tr.info > td{
+  background-color: #D9EDF7 !important;
+}

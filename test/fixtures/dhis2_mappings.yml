@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  mtrac_name: MyString
+  mtrac_owner: MyString
+  healthfacilitybase_id: 1
+  dhis2_name: MyString
+  dhis2_owner: MyString
+  dhis2_uuid: MyString
+  district: MyString
+  type: 
+  percentage_matched: 1.5
+  duplicate: false
+  followup: false
+
+two:
+  mtrac_name: MyString
+  mtrac_owner: MyString
+  healthfacilitybase_id: 1
+  dhis2_name: MyString
+  dhis2_owner: MyString
+  dhis2_uuid: MyString
+  district: MyString
+  type: 
+  percentage_matched: 1.5
+  duplicate: false
+  followup: false

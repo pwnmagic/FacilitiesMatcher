@@ -1,0 +1,21 @@
+.span3
+  .well.sidebar-nav
+    ul.nav.nav-list#districts
+      - @districts.each do |district|
+        li
+          = link_to "/by_district?district=" + district do
+            = district
+            span.badge.badge-success.right
+              = HealthFacility.no_of_facities_left_by_district(district)
+
+.span8.district-list
+  - unless @mappings.blank?
+    - @mappings.each do |mappings|
+      h3
+        = "mTrac name : " + mappings.name + " - " + mappings.f_type + " - " + mappings.owner
+        span.id.hide = " - " + mappings.healthfacilitybase_id.to_s
+        small
+          | Last reported date: &nbsp;
+          = mappings.last_reported_date
+      = render :partial => "mapping_list", locals: {mappings: mappings.facilities}
+    = will_paginate @mappings, :renderer => BootstrapPagination::Rails

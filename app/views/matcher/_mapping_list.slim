@@ -1,0 +1,103 @@
+- reload ||= false
+- mappings = mappings || @mappings
+table.table.table-striped.table-bordered
+  thead
+    tr
+      th.mtrac-id.id.hide mTrac ID
+      th.mtrac-name mTrac name
+      th.mtrac-type mTrac type
+      th.mtrac-owner mTrac owner
+      th.last-reported-date Last reported date
+      th.dhis-uuid.id.hide DHIS2 UUID
+      th DHIS2 name
+      th.dhis-type DHIS2 type
+      th.dhis-owner DHIS2 owner
+      th.district-name District
+      th %
+      th.promoted Promoted
+      th Action
+      th.comments Comments
+  tbody
+    - mappings.each do |mapping|
+      tr class="#{mapping.duplicate ? 'success' : ''} #{mapping.duplicate == false ? 'error' : ''} #{mapping.followup ? 'warning' : ''} #{mapping.already_matched ? 'info' : ''}"
+        td.mtrac-id.id.hide = mapping.healthfacilitybase_id
+        td.mtrac-name = mapping.mtrac_name
+        td.mtrac-type = mapping.f_type
+        td.mtrac-owner = mapping.mtrac_owner
+        td.last-reported-date = mapping.last_reported_date
+        td.dhis-uuid.id.hide = mapping.dhis2_uuid
+        td = mapping.dhis2_name
+        td.dhis-type = mapping.dhis2_f_type
+        td.dhis-owner = mapping.dhis2_owner
+        td.district-name = mapping.district
+        td = mapping.percentage_matched.to_i
+        td.promoted
+          - if mapping.mark_duplicate
+            | Marked Duplicate
+          - elsif mapping.mark_delete
+            | Marked Delete
+          - elsif mapping.mark_reprocess
+            | Marked Reprocess
+          - elsif mapping.add_to_dhis2
+            | Add to DHIS2
+          - elsif mapping.error_in_dhis2_data
+            | Review in DHIS2
+          - elsif mapping.followup
+            | Follow up
+          - else
+            - if mapping.duplicate
+              = raw("&#10003;")
+            - if mapping.duplicate == false
+              = raw("&#10007;")
+        td class="promote-or-demote #{reload ? 'reload' : ''}"
+          div class="btn-group"
+            a class="btn dropdown-toggle" data-toggle="dropdown" href="#"
+              | Action
+              span class="caret"
+            ul class="dropdown-menu"
+              - if mapping.followup
+                li
+                  = link_to raw("&#10007; Demote"), demote_facility_path(mapping.id)
+                li
+                  = link_to raw("&#10003; Promote"), promote_facility_path(mapping.id)
+              - else
+                - if mapping.duplicate
+                  li
+                    = link_to raw("&#10007; Demote"), demote_facility_path(mapping.id)
+                - elsif mapping.duplicate.nil?
+                  li
+                    = link_to raw("&#10007; Demote"), demote_facility_path(mapping.id)
+                  li
+                    = link_to raw("&#10003; Promote"), promote_facility_path(mapping.id)
+                - else
+                  li
+                    = link_to raw("&#10003; Promote"), promote_facility_path(mapping.id)
+                li
+                  = link_to "Follow up", followup_facility_path(mapping.id)
+              li
+                = link_to "Mark Duplicate", mark_duplicate_path(mapping.id)
+              li
+                = link_to "Mark Delete", mark_delete_path(mapping.id)
+              li
+                = link_to "Reprocess", mark_reprocess_path(mapping.id)
+              li
+                = link_to "Add to DHIS2", add_to_dhis2_path(mapping.id)
+              li
+                = link_to "Review in DHIS2", error_in_dhis2_data_path(mapping.id)
+        td.comments
+          = link_to mapping.show_comment.blank? ? "Add" : "View", "#myModal-#{mapping.id}", "role" => "button", "data-toggle" => "modal", :class => "comment-link"
+          .modal.hide.fade id="myModal-#{mapping.id}"
+            = form_tag(comment_path(mapping.id), :method => :put, :remote => true, :class => "comment-form") do
+              .modal-header
+                h3
+                  | Comment
+              .modal-body
+                textarea rows="5" name="comment"
+                  = mapping.show_comment
+              .modal-footer
+                button type="submit" class="btn btn-primary submit" data-loading-text="Updating..."
+                  | Save
+                button class="btn" data-dismiss="modal" aria-hidden="true"
+                  | Close
+- if mappings.respond_to?(:current_page)
+  = will_paginate mappings, :renderer => BootstrapPagination::Rails

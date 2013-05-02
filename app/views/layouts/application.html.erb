@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "FacilitiesMatcher" %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+  </head>
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">FacilitiesMatcher</a>
+          <div class="container nav-collapse">
+            <ul class="nav" id="top-nav">
+              <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">Matches <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "100%", "/hundred_percent_matches"  %></li>
+                  <li><%= link_to "99% - 80%", "/ninenty_nine_till_eighty"  %></li>
+                  <li><%= link_to "79% - 50%", "/seventy_nine_till_fifty"  %></li>
+                  <li><%= link_to "< 50%", "/below_fifty"  %></li>
+                </ul>
+              </li>
+              <li><%= link_to "Facilities by district", "/by_district"  %></li>
+              <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">Followups <b class="caret"></b></a>
+                <ul class="dropdown-menu followups">
+                  <li><%= link_to "All", "/followups"  %></li>
+                  <li><%= link_to "Marked as duplicate", "/followups/duplicates"  %></li>
+                  <li><%= link_to "Marked for delete", "/followups/deletes"  %></li>
+                  <li><%= link_to "Marked for reprocessing", "/followups/reprocessed"  %></li>
+                  <li><%= link_to "To be added in DHIS2", "/followups/add_to_dhis2"  %></li>
+                  <li><%= link_to "To be reviewed in DHIS2", "/followups/error_in_dhis2_data"  %></li>
+                  <li><%= link_to "With comments", "/followups/with_comments"  %></li>
+                </ul>
+              </li>
+
+              <li><%= link_to "Facilities", "/facilities"  %></li>
+              <li><%= link_to "Toggle ID/UUID", "javascript:;", :id => "toggle-id"  %></li>
+            </ul>
+            <form class="navbar-search pull-left" action="/search">
+              <input name="query" type="text" class="search-query" value="<%= params[:query] %>" placeholder="Search">
+            </form>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <br><br><br>
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <%= bootstrap_flash %>
+          <%= yield %>
+        </div>
+      </div><!--/row-->
+      <br><br><br>
+      <footer>
+        <p>&copy; Batman</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <div id="myModal" class="modal hide fade">
+      <div class="modal-body">
+        Loading...
+      </div>
+    </div>
+
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>
+
+  </body>
+</html>
